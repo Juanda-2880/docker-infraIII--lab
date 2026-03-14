@@ -1,0 +1,84 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  # ─── Box ───────────────────────────────────────────────────────────────────
+  # Nota: "rockylinux/9" tiene un error 404 conocido en Vagrant Cloud.
+  # "generic/rocky9" es la alternativa oficial más estable para VirtualBox.
+  config.vm.box = "generic/rocky9"
+
+  # ─── Red ───────────────────────────────────────────────────────────────────
+  # NAT por defecto → acceso a internet garantizado.
+  # Red privada adicional para acceso host ↔ VM.
+  config.vm.network "private_network", type: "dhcp"
+
+  # ─── Sincronización de carpetas ────────────────────────────────────────────
+  config.vm.synced_folder ".", "/vagrant", disabled: false
+
+  # ─── Proveedor: VirtualBox ─────────────────────────────────────────────────
+  config.vm.provider "virtualbox" do |vb|
+    vb.name   = "rocky-linux-9"
+    vb.cpus   = 3
+    vb.memory = 3000
+
+    # Habilitar I/O APIC para múltiples CPUs
+    vb.customize ["modifyvm", :id, "--ioapic", "on"]
+
+    # Controlador de red en modo NAT con acceso a internet
+    vb.customize ["modifyvm", :id, "--nic1", "nat"]
+
+    # Resolución de DNS a través del host
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.customize ["modifyvm", :id, "--natdnsproxy1",        "on"]
+
+    # Aceleración de hardware (si está disponible)
+    vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
+    vb.customize ["modifyvm", :id, "--nestedpaging", "on"]
+  end
+
+  # ─── Proveedor alternativo: libvirt ────────────────────────────────────────
+  config.vm.provider "libvirt" do |lv|
+    lv.cpus   = 3
+    lv.memory = 3000
+  end
+
+  # ─── Aprovisionamiento ─────────────────────────────────────────────────────
+  config.vm.provision "shell", inline: <<-SHELL
+    echo "========================================"
+    echo "  Aprovisionando Rocky Linux 9"
+    echo "========================================"
+
+    # Actualizar el sistema
+    dnf update -y
+
+    # Herramientas esenciales
+    dnf install -y \
+      vim \
+      curl \
+      wget \
+      git \
+      net-tools \
+      bash-completion \
+      htop \
+      unzip \
+      tar
+
+    # Verificar conectividad a internet
+    echo ""
+    echo "── Verificando acceso a internet ──"
+    curl -s --max-time 5 https://www.google.com > /dev/null \
+      && echo "✔  Conexión a internet OK" \
+      || echo "✘  Sin conexión a internet"
+
+    echo ""
+    echo "── Información del sistema ──"
+    echo "CPU(s):  $(nproc)"
+    echo "RAM:     $(free -m | awk '/^Mem:/{print $2}') MB"
+    echo "OS:      $(cat /etc/rocky-release)"
+    echo "========================================"
+    echo "  Máquina lista"
+    echo "========================================"
+  SHELL
+
+end
