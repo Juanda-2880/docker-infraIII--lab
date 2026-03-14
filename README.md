@@ -26,7 +26,7 @@
 
 | Campo | Valor |
 |---|---|
-| **Estudiante** | J. Pacheco |
+| **Estudiante** | Juan David Pacheco |
 | **Usuario MySQL / DockerHub** | `jpacheco` |
 | **Docente** | Mario Germán Castillo Ramírez |
 | **Programa** | Ingeniería Telemática |
