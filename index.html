@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Status: Online</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --accent-color: #00ffd9;
+            --card-bg: #161b22;
+            --text-color: #c9d1d9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 3rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 
+                        0 0 20px rgba(0, 255, 217, 0.1);
+            border: 1px solid rgba(0, 255, 217, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .status-dot {
+            height: 15px;
+            width: 15px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+            box-shadow: 0 0 10px var(--accent-color);
+            animation: pulse 2s infinite;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        p {
+            font-family: 'Courier New', Courier, monospace;
+            color: #8b949e;
+            font-size: 1.1rem;
+        }
+
+        .docker-logo {
+            width: 80px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 5px rgba(0, 255, 217, 0.4));
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 217, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 255, 217, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 217, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <svg class="docker-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.983 11.078h2.119c.63 0 1.064-.538 1.064-1.107V8.854c0-.569-.434-1.107-1.064-1.107h-2.119c-.63 0-1.064.538-1.064 1.107v1.117c0 .569.434 1.107 1.064 1.107zM13.983 7.298h2.119c.63 0 1.064-.538 1.064-1.107V5.074c0-.569-.434-1.107-1.064-1.107h-2.119c-.63 0-1.064.538-1.064 1.107v1.117c0 .569.434 1.107 1.064 1.107zM16.997 11.078h2.119c.63 0 1.064-.538 1.064-1.107V8.854c0-.569-.434-1.107-1.064-1.107h-2.119c-.63 0-1.064.538-1.064 1.107v1.117c0 .569.434 1.107 1.064 1.107zM7.955 11.078h2.118c.63 0 1.064-.538 1.064-1.107V8.854c0-.569-.434-1.107-1.064-1.107H7.955c-.63 0-1.064.538-1.064 1.107v1.117c0 .569.434 1.107 1.064 1.107zM10.969 11.078h2.119c.63 0 1.064-.538 1.064-1.107V8.854c0-.569-.434-1.107-1.064-1.107h-2.119c-.63 0-1.064.538-1.064 1.107v1.117c0 .569.434 1.107 1.064 1.107zM10.969 7.298h2.119c.63 0 1.064-.538 1.064-1.107V5.074c0-.569-.434-1.107-1.064-1.107h-2.119c-.63 0-1.064.538-1.064 1.107v1.117c0 .569.434 1.107 1.064 1.107zM4.94 11.078h2.119c.63 0 1.064-.538 1.064-1.107V8.854c0-.569-.434-1.107-1.064-1.107H4.94c-.63 0-1.064.538-1.064 1.107v1.117c0 .569.434 1.107 1.064 1.107zM10.969 3.518h2.119c.63 0 1.064-.538 1.064-1.107V1.294c0-.569-.434-1.107-1.064-1.107h-2.119c-.63 0-1.064.538-1.064 1.107v1.117c0 .569.434 1.107 1.064 1.107z" fill="#00ffd9"/>
+            <path d="M23.763 12.356c-.302-.123-.626-.201-.958-.234-.146-.017-.293-.027-.441-.027H.482c-.114 0-.225.015-.332.043-.09.022-.181.044-.271.072l-.115.039c.233.515.525 1.023.873 1.503.741 1.011 1.745 1.867 2.891 2.551 1.61 1.083 3.678 1.731 5.975 1.813 1.185.043 2.457-.025 3.859-.206a1 1 0 00.869-1.037l-.025-.522c-.013-.21.13-.397.338-.45a13.762 13.762 0 014.674-.312c1.62.193 2.907.967 3.823 2.301 1.355 1.968 1.29 4.056.973 5.441a.5.5 0 00.489.61h.029a12.13 12.13 0 008.318-7.346.5.5 0 00-.27-.66l-.161-.069z" fill="#00ffd9"/>
+        </svg>
+
+        <h1>SYSTEM <span style="color: var(--accent-color);">ONLINE</span></h1>
+        <p><span class="status-dot"></span> DOCKER CONTAINER RUNNING</p>
+    </div>
+
+</body>
+</html>
